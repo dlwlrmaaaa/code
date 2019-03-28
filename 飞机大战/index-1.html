@@ -36,8 +36,7 @@
         #oPlane{
             display: block;
             position: absolute;
-            left:0px;
-            top:0px;
+                 
         }
     </style>
 </head>
@@ -47,6 +46,7 @@
 
     <script type="text/javascript">
     /*单例模式 所有功能都模块化 对应模块修改 与外界只有exe联系*/
+    //+(x-oGameBox.offsetLeft-parseInt(oGameBox.style.borderWidth)-36)+
 
         window.onload=function(){
 
@@ -88,8 +88,9 @@
                         this.style.background='#fff';
                         this.style.color='#000';
                     };
-                    oP.onclick=function(){
-                        This.start( this.index,oDiv);
+                    oP.onclick=function(e){
+                        e=e||window.event;
+                        This.start( this.index,oDiv,e);
                     };
                     switch(i)
                     {
@@ -120,20 +121,38 @@
             },
 
             //游戏开始
-            start:function(index ,oGameBox){
-                oGameBox.innerHTML='';
-                this.plane(oGameBox);
+            start:function(index ,oGameBox,e){
+                oGameBox.innerHTML='';//oGameBox代表oDiv,形参
+                this.plane(oGameBox,e);
             },
 
             //关于飞机
-            plane:function(oGameBox){
+            plane:function(oGameBox,e){
+                var x=e.pageX,
+                    y=e.pageY;
                 //var oPlane=document.createElement('img');
                 var oPlane=new Image();
                     oPlane.src='img/plane.png';
                     oPlane.width=60;
                     oPlane.height=36;
                     oPlane.id='oPlane';
+                    var lX=oGameBox.offsetLeft+parseInt(oGameBox.style.borderWidth)-oPlane.width/2;
+                    var tY=oGameBox.offsetTop+parseInt(oGameBox.style.borderWidth)-oPlane.height/2;
+                    
+                    window.onresize=function(){
+                        lX=oGameBox.offsetLeft+parseInt(oGameBox.style.borderWidth)-oPlane.width/2;
+                    };//窗口width改变时
+                    
+                    var top=y-tY;
+                    var left=x-lX;
+                    oPlane.style.cssText=' left:'+left+'px;top:'+top+'px;';
                 oGameBox.appendChild(oPlane);
+
+                document.onmousemove=function(e){
+                    e=e||window.event;
+                    oPlane.style.left=e.pageX-lX+'px';
+                    oPlane.style.top=e.pageY-tY+'px';
+                };
             },
 
         };
