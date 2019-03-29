@@ -185,11 +185,28 @@
                         var lMin=-oEnemy.width/2;
                         var lMax=oGameBox.clientWidth-oEnemy.width/2;
                         var left=Math.random()*(lMax-lMin)+lMin;
-                        oEnemy.style.cssText='position:absoulte; top:'+(-oEnemy.height)+'px;left:'+left+'px;'
+                        
+                        oEnemy.style.cssText = 'position:absolute;top:'+(-oEnemy.height)+'px;left:'+left+'px;'
                         oGameBox.appendChild(oEnemy);
                     },500);//敌军生成速度
                 
             },
+            
+            // 这段和上面一模一样为什么就不行?
+            // enemy:function(oGameBox){
+            //     var timer=setInterval(function(){
+            //             var oEnemy=new Image();
+            //                 oEnemy.src='img/enemy.png';
+            //                 oEnemy.width=23;
+            //                 oEnemy.height=30;
+            //             var lMin=-oEnemy.width/2;
+            //             var lMax=oGameBox.clientWidth-oEnemy.width/2;
+            //             var left=Math.random()*(lMax-lMin)+lMin;
+            //             oEnemy.style.cssText='position:absoulte; top:'+(-oEnemy.height)+'px;left:'+left+'px;'
+            //             oGameBox.appendChild(oEnemy);
+            //         },500);//敌军生成速度
+                
+            // },
 
         };
 
